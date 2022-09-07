@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init() {
   // adds eventlistener that updates on every input on the colorwheel
-  document.querySelector("#colorwheel").addEventListener("input", getColor);
+  document.querySelector("#colorwheel").addEventListener("input", valueDelegator);
 }
 
-function getColor() {
+function valueDelegator() {
   const colorPicked = document.querySelector("#colorwheel");
 
   // defines hex, rgb, and hsl as the return values of the different conversion functions
