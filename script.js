@@ -10,12 +10,12 @@ function init() {
 function getColor() {
   const colorPicked = document.querySelector("#colorwheel");
 
-  // defines hex, rgb, and hsl as the return values of the different functions
+  // defines hex, rgb, and hsl as the return values of the different conversion functions
   const hex = getHex(colorPicked);
   const rgb = calculateHexToRGB(hex);
   const hsl = calculateRGBToHSL(rgb);
 
-  // call multiple functions with the value from the colorwheel
+  // call multiple functions with the converted values
   displayColorPicked(hex);
   showHEX(hex);
   showRGB(rgb);
@@ -23,39 +23,46 @@ function getColor() {
 }
 
 function displayColorPicked(hex) {
+  // uses the return value from hex and displays it as background-color in #color_box div
   document.querySelector("#color_box").style.backgroundColor = hex;
 }
 
 function getHex(colorPicked) {
+  // the value from the colorwheel is already in hexidecimal and doesn't have to convert it
   const colorHex = colorPicked.value;
+
+  // returns the color in hexidecimal
   return colorHex;
 }
 
-function showHEX(colorPicked) {
-  // the value from the colorwheel is already in hexidecimal and doesn't have to convert it
+function showHEX(hex) {
+  // uses the return value from hex and displays it in the DOM
   const hexTxt = document.querySelector("#hex");
-  hexTxt.querySelector("span").textContent = colorPicked;
+  hexTxt.querySelector("span").textContent = hex;
 }
 
 function calculateHexToRGB(hex) {
-  // divide the hexdecimal to double digits/characters and converting them to rgb values
+  // divides the hexdecimal into double digits/characters and converting them to r, g and b values
   let r = parseInt(hex.substring(1, 3), 16);
   let g = parseInt(hex.substring(3, 5), 16);
   let b = parseInt(hex.substring(5), 16);
 
+  // returns the values of r, g and b as an object
   return { r, g, b };
 }
 
 function showRGB(rgb) {
-  // uses the r, g and b parameters in string literal and displaying it in the DOM
+  // uses the values of the properties in the rgb-object in a string literal and displays them in the DOM
   const rgbTxt = document.querySelector("#rgb");
   rgbTxt.querySelector("span").textContent = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
 }
 
 function calculateRGBToHSL(rgb) {
+  // defines the varaibles r, g and b as the properties in the the rgb-object
   let r = rgb.r;
   let g = rgb.g;
   let b = rgb.b;
+
   // converts RGB to HSL. I have no idea whats going on here..
   // ***** beginning of borrowed code - conversion of rgb to hsl *****
   r /= 255;
@@ -92,7 +99,6 @@ function calculateRGBToHSL(rgb) {
   // multiply s and l by 100 to get the value in percent, rather than [0,1]
   s *= 100;
   l *= 100;
-
   // ***** end of borrowed code *****
 
   // rounds values of h, s and l to whole numbers with no decimals
@@ -100,12 +106,12 @@ function calculateRGBToHSL(rgb) {
   s = s.toFixed(0);
   l = l.toFixed(0);
 
-  // calls showHSL with the h, s and l parameters
+  // returns the values of h, s and l as an obejct
   return { h, s, l };
 }
 
 function showHSL(hsl) {
-  // uses the h, s and l parameters and display them in the DOM
+  // uses the hsl-object and displays the values of its properties in the DOM
   const hslTxt = document.querySelector("#hsl");
   hslTxt.querySelector("span").textContent = hsl.h + "° " + hsl.s + "% " + hsl.l + "%";
 }
